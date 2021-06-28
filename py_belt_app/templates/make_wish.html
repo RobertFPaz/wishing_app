@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id='header'>
+            <h1>Hello {{user.first_name}}! Make a wish!</h1>
+            <div class="nav">
+                <a href="/wishes/logout">Logout</a>
+            </div>
+        </div>
+        <div class="errors">
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <form action="/wishes/add_wish" method="POST">
+            {% csrf_token %}
+            <label for="item">I wish for:</label>
+            <input type="text" name="item"><br>
+            <label for="description">Description</label>
+            <textarea name="description"></textarea><br>
+            <div class="buttons_div">
+                <a href="/wishes" class="form_button">Cancel</a><input type="submit" class="form_button" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
